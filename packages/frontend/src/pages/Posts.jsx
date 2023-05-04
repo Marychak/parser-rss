@@ -1,12 +1,14 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchPosts, fetchRemovePost, updatePosts} from "../redux/slices/posts";
-import {logout} from "../redux/slices/auth";
 import MaterialReactTable from 'material-react-table';
 import Button from "@mui/material/Button";
 import {Box, IconButton, Tooltip} from "@mui/material";
 import {Delete, Edit} from '@mui/icons-material';
+
+import {fetchPosts, fetchRemovePost, updatePosts} from "../redux/slices/posts";
+import {logout} from "../redux/slices/auth";
 import axios from "../axios";
+
 import {defaultSort, columns} from "./costants";
 
 export const Posts = () => {
@@ -22,10 +24,8 @@ export const Posts = () => {
         dispatch(fetchPosts({pagination, sorting}));
     }, [dispatch, pagination, sorting]);
 
-    console.log('test', sorting, pagination, items, totalCount)
-
     const onClickLogout = () => {
-        if (window.confirm('Вы действительно хотите выйти?')) {
+        if (window.confirm('Are you sure you want to go out?')) {
             dispatch(logout());
             window.localStorage.removeItem('token');
         }
@@ -37,8 +37,7 @@ export const Posts = () => {
         isLoading
     }), [pagination, sorting, isLoading]);
 
-    const handleSaveRow = async ({exitEditingMode, row, values}) => {
-        console.log('row save', row, values);
+    const handleSaveRow = async ({exitEditingMode, values}) => {
         try {
             await axios.put(`/posts/${values['_id']}`, values);
             dispatch(updatePosts(values));

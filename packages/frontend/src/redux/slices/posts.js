@@ -1,4 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+
 import axios from '../../axios';
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async ({pagination, sorting}) => {
@@ -46,12 +47,8 @@ const postsSlice = createSlice({
             state.items = [];
             state.isLoading = false;
         },
-
-        [fetchRemovePost.pending]: (state, action) => {
-            state.items = state.items.filter((obj) => obj._id !== action.meta.arg);
-        },
     },
 });
 
 export const postsReducer = postsSlice.reducer;
-export const { updatePosts} = postsSlice.actions
+export const {updatePosts} = postsSlice.actions

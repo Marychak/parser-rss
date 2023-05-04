@@ -2,12 +2,16 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
-import {handleValidationErrors, checkAuth, parseRSS} from './utils';
-import {UserController, PostController} from './controllers';
-import {registerValidation} from './validations.js';
+import {handleValidationErrors, checkAuth, parseRSS} from './utils/index.js';
+import {UserController, PostController} from './controllers/index.js';
+import {loginValidation, registerValidation} from './validations.js';
 
+console.log('    process.env.MONGO_CONNECTION_STRING\n', process.env.MONGO_CONNECTION_STRING
+)
+
+const connectionString = process.env.MONGO_CONNECTION_STRING;
 mongoose.connect(
-    'mongodb+srv://marjanmarychak:z5E8K40KMRaUzX1D@parserrss.sfxvobv.mongodb.net/?retryWrites=true&w=majority'
+    connectionString
 ).then(() => console.log('DB ok'))
     .catch((err) => console.log('DB error', err));
 
@@ -18,7 +22,7 @@ parseRSS();
 app.use(express.json());
 app.use(cors());
 
-app.post('/auth/login', UserController.login);
+app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login);
 app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
 app.get('/auth/user', checkAuth, UserController.getUser);
 

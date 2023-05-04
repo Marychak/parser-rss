@@ -1,7 +1,7 @@
-import axios from 'packages/frontend/src/axios';
+import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+    baseURL: 'http://localhost:3001',
 });
 
 instance.interceptors.request.use((config) => {

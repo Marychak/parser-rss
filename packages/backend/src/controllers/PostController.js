@@ -8,7 +8,6 @@ export const getAll = async (req, res) => {
             .skip(page * limit)
             .sort({[sortBy]: sortOrder})
             .exec();
-        console.log('sort', sortBy, sortOrder);
 
         const count = await PostModel.countDocuments();
         res.header('Access-Control-Expose-Headers', 'X-Total-Count');
@@ -104,7 +103,7 @@ export const update = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: 'Не удалось обновить статью',
+            message: 'Failed to update a post',
         });
     }
 };

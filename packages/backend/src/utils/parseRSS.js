@@ -7,7 +7,6 @@ export default () => {
     const parser = new Parser();
 
     cron.schedule('0 * * * *', () => {
-        console.log('startParse');
         parser.parseURL('http://lifehacker.com/rss ')
             .then(feed => {
                 feed.items.forEach(item => {

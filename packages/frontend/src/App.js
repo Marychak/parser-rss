@@ -1,12 +1,10 @@
+import React from 'react';
 import {Routes, Route, Navigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {Registration, Login, Posts} from './pages';
-import React from 'react';
 import {fetchAuthUser, selectIsAuth, selectIsUserLoading} from './redux/slices/auth';
 import {ProtectedRoute} from "./components/ProtectedRoute";
-import {Box, CircularProgress} from "@mui/material";
-
+import {Registration, Login, Posts} from './pages';
 
 function App() {
     const dispatch = useDispatch();

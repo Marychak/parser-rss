@@ -1,10 +1,17 @@
 {
-  "name": "root",
+  "name": "parser-rss",
   "private": true,
+  "author": "Marian <Marjan_maruchak@icloud.com",
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
     "lerna": "^6.6.1"
+  },
+  "scripts": {
+    "start": "lerna run start --stream",
+    "dev": "lerna run dev --stream",
+    "prod": "lerna run start-prod --stream",
+    "test": "lerna run test --stream"
   }
 }

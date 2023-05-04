@@ -3,7 +3,9 @@ import bcrypt from "bcrypt";
 import UserModel from "../models/user.js";
 import jwt from "jsonwebtoken";
 
+const secret = process.env.JWT_SECRET;
 export const register = async (req, res) => {
+
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -26,7 +28,7 @@ export const register = async (req, res) => {
             {
                 _id: user._id,
             },
-            'YPlt2OsCBy',
+            secret,
         );
 
         const {passwordHash, ...userData} = user._doc;
@@ -52,7 +54,7 @@ export const login = async (req, res) => {
         const isValidPass = await bcrypt.compare(req.body.password, user._doc.passwordHash);
         if (!isValidPass) {
             return res.status(404).json({
-                message: 'Incorect login or password'
+                message: 'Incorrect login or password'
             });
         }
 
@@ -60,14 +62,14 @@ export const login = async (req, res) => {
             {
                 _id: user._id,
             },
-            'YPlt2OsCBy',
+            secret,
         );
         const {passwordHash, ...userData} = user._doc;
 
         res.json({userData, token});
     } catch (err) {
         res.status(500).json({
-            message: 'login filed'
+            message: 'Login failed'
         });
     }
 };
