@@ -10,16 +10,16 @@ export default () => {
         parser.parseURL('http://lifehacker.com/rss ')
             .then(feed => {
                 feed.items.forEach(item => {
-                    PostModel.findOne({guid: item.guid}).then((err, existingItem) => {
-                        if (err) {
-                            console.error(err);
-                            return;
-                        }
+                    PostModel.findOne({ guid: item.guid }).then((err, existingItem) => {
+                      if (err) {
+                        console.error(err);
+                        return;
+                      }
 
-                        if (!existingItem) {
-                            const newPost = new PostModel(item);
-                            newPost.save();
-                        }
+                      if (!existingItem) {
+                        const newPost = new PostModel(item);
+                        newPost.save();
+                      }
                     });
                 });
             });

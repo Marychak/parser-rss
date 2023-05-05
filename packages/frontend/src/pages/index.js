@@ -1,3 +1,3 @@
-export {Registration} from "./Registration";
-export {Login} from "./Login";
-export {Posts} from "./Posts";
+export { Registration } from './Registration';
+export { Login } from './Login';
+export { Posts } from './Posts';
