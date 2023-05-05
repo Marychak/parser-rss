@@ -10,8 +10,10 @@ import { logout } from '../redux/slices/auth';
 import axios from '../axios';
 
 import { defaultSort, columns } from './costants';
+import { CreateNewAccountModal } from '../components/CreateNewPostModal';
 
 export const Posts = () => {
+  const [createModalOpen, setCreateModalOpen] = useState(false);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10
@@ -40,13 +42,23 @@ export const Posts = () => {
     [pagination, sorting, isLoading]
   );
 
+  const handleCreatePost = async (values) => {
+    try {
+      await axios.post(`/posts`, values);
+      fetchPosts({ pagination, sorting });
+    } catch (err) {
+      console.warn(err);
+      alert('Error creating post!');
+    }
+  };
+
   const handleSaveRow = async ({ exitEditingMode, values }) => {
     try {
       await axios.put(`/posts/${values['_id']}`, values);
       dispatch(updatePosts(values));
     } catch (err) {
       console.warn(err);
-      alert('Ошибка при создании статьи!');
+      alert('Error updating post!');
     } finally {
       exitEditingMode();
     }
@@ -100,6 +112,17 @@ export const Posts = () => {
         onEditingRowCancel={handleCancelRowEdits}
         renderRowActions={getRowActions}
         state={stateMemo}
+        renderTopToolbarCustomActions={() => (
+          <Button color="secondary" onClick={() => setCreateModalOpen(true)} variant="contained">
+            Create New Post
+          </Button>
+        )}
+      />
+      <CreateNewAccountModal
+        columns={columns}
+        open={createModalOpen}
+        onClose={() => setCreateModalOpen(false)}
+        onSubmit={handleCreatePost}
       />
     </>
   );

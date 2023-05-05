@@ -1,4 +1,6 @@
 .root {
+  display: flex;
+  flex-direction: column;
   width: 400px;
   padding: 50px;
   border: 1px solid #dedede;
@@ -14,8 +16,9 @@
     margin-bottom: 30px !important;
   }
 
-  a{
+  a {
     margin-top: 5pt;
-  };
+  }
+;
 }
 

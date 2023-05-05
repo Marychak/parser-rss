@@ -1,11 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
 
+import Button from '@mui/material/Button';
 import { fetchRegister } from '../../redux/slices/auth';
 
 import styles from './Registration.module.scss';
@@ -65,8 +66,8 @@ export const Registration = () => {
         <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
           Sing up
         </Button>
-        <a href="/login">Login</a>
       </form>
+      <NavLink to="/login">Login</NavLink>
     </Paper>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
@@ -55,8 +55,8 @@ export const Login = () => {
         <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
           Log in
         </Button>
-        <a href="/register">Register</a>
       </form>
+      <NavLink to="/register">Register</NavLink>
     </Paper>
   );
 };
